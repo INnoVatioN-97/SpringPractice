@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <!-- 그냥 이 페이지를 직접 절대경로로 열어보면 우측의 hello! empty처럼 페이지의 껍데기가 나오고, 컨트롤러를 거쳐 나오게 되면
+        좌측의 hello name이 나오게 된다-->
+    <p th:text="'hello! '+${name}">hello! empty</p>
+    <img src="../images/img_1.png"/>
+</body>
+</html>
