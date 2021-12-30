@@ -5,6 +5,7 @@ import hello.hellospring.repository.MemberRepository;
 import hello.hellospring.repository.MemoryMemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +16,7 @@ import java.util.Optional;
  * 직접적 명시를 해주어 나중에 다른사람들과 소통할때 좀 더 편하도록 한다.
  */
 
+@Transactional
 public class MemberService {
     private final MemberRepository memberRepository;
 
@@ -26,7 +28,6 @@ public class MemberService {
      * 회원 가입
      */
     public Long join(Member member) {
-        // cmd + option + V 하면 해당 메소드의 리턴값을 받는 변수를 만들어줌.
 //        Optional<Member> result = memberRepository.findByName(member.getName());
 //        result.ifPresent(m-> {
 //            throw new IllegalStateException("이미 존재하는 회원입니다.");

@@ -20,7 +20,6 @@ public class HelloController {
         // 속성을 전달
     }
 
-    // cmd+p 를 누르면 툴팁 표시됨. 이 줄에 뭘 더 넣을 수 있는지
     // 아래는 템플릿 방식식    @GetMapping("hello-mvc")
     public String helloMvc(@RequestParam("name") String name, Model model){
         model.addAttribute("name", name);
