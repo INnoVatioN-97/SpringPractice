@@ -1,4 +1,4 @@
-package com.practice.spring.youngil.songjavacodingstudy.configuration;
+package com.practice.spring.youngil.songjava.lecture.configuration;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;

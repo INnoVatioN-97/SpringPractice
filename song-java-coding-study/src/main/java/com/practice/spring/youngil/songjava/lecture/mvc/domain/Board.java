@@ -1,9 +1,12 @@
-package com.practice.spring.youngil.songjavacodingstudy.mvc.domain;
+package com.practice.spring.youngil.songjava.lecture.mvc.domain;
 
 import lombok.Data;
 
 import java.util.Date;
 
+/**
+ * Board Bean 클래스
+ */
 @Data
 public class Board {
 

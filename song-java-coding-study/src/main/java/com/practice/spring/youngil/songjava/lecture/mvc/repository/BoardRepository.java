@@ -1,6 +1,6 @@
-package com.practice.spring.youngil.songjavacodingstudy.mvc.repository;
+package com.practice.spring.youngil.songjava.lecture.mvc.repository;
 
-import com.practice.spring.youngil.songjavacodingstudy.mvc.domain.Board;
+import com.practice.spring.youngil.songjava.lecture.mvc.domain.Board;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public interface BoardRepository {
     Board getBoard(int boardSeq);
 
     // 게시글 저장
-    void saveBoard(Board board);
+    int saveBoard(Board board);
 
     // 게시글 수정
     void updateBoard(Board board);
