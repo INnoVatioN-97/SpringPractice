@@ -60,7 +60,8 @@ Springboot 2.6.2 Gradle 프로젝트, 자바 11 사용, 패키징 방식: .jar
 ## Swagger 사용 관련 Annotations
 
 ***(컨트롤러 클래스에) @Api(tags="게시판 API")***
-- tags 에 들어간 내용은 사진과 같이 나타난다.![img.png](dummy_images/api_tag.png)
+- tags 에 들어간 내용은 사진과 같이 나타난다.
+![img.png](dummy_images/api_tag.png)
 
 
 ---

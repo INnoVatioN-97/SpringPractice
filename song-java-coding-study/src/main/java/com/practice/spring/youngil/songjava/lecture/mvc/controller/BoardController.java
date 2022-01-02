@@ -1,6 +1,7 @@
 package com.practice.spring.youngil.songjava.lecture.mvc.controller;
 
 
+import com.practice.spring.youngil.songjava.lecture.configuration.http.BaseResponse;
 import com.practice.spring.youngil.songjava.lecture.mvc.domain.Board;
 import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter;
 import com.practice.spring.youngil.songjava.lecture.mvc.service.BoardService;
@@ -33,8 +34,8 @@ public class BoardController {
     // 전체 조회
     @GetMapping("")
     @ApiOperation(value = "목록 조회", notes = "전체 게시물을 조회 가능.")
-    public List<Board> getList() {
-        return boardService.getList();
+    public BaseResponse<List<Board>> getList() {
+        return new BaseResponse<>(boardService.getList());
     }
 
     // 한건 조회
@@ -43,8 +44,8 @@ public class BoardController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "boardSeq", value = "게시글 번호", example = "1")
     })
-    public Board getBoard(@PathVariable int boardSeq) {
-        return boardService.getBoard(boardSeq);
+    public BaseResponse<Board> getBoard(@PathVariable int boardSeq) {
+        return new BaseResponse<>(boardService.getBoard(boardSeq));
     }
 
     // 게시글 저장
@@ -55,9 +56,9 @@ public class BoardController {
             @ApiImplicitParam(name = "title", value = "게시글 제목", example = "게시글에 들어갈 제목"),
             @ApiImplicitParam(name = "contents", value = "게시글 내용", example = "게시글에 들어갈 내용"),
     })
-    public int saveBoard(BoardParameter parameter) {
+    public BaseResponse<Integer> saveBoard(BoardParameter parameter) {
         boardService.saveBoard(parameter);
-        return parameter.getBoardSeq();
+        return new BaseResponse<>(parameter.getBoardSeq());
     }
 
 //    // 게시글 수정
@@ -73,9 +74,11 @@ public class BoardController {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "boardSeq", value = "게시글 번호", example = "1"),
     })
-    public void deleteBoard(@PathVariable int boardSeq) {
+    public BaseResponse<Boolean> deleteBoard(@PathVariable int boardSeq) {
+        Board board = boardService.getBoard(boardSeq);
+        if(board == null) return new BaseResponse<>(false);
         boardService.deleteBoard(boardSeq);
-
+        return new BaseResponse<>(true);
     }
 
 }
