@@ -24,14 +24,8 @@ Springboot 2.6.2 Gradle 프로젝트, 자바 11 사용, 패키징 방식: .jar
 
 **Swagger**
 - API 를 만들어서 누군가 쓰도록 할 때, 이 API 의 사용법을 내 소스를 기반으로 "DB에서 한건 조회하려면 요렇게 하고, 값을 넣으려면 이렇게 하면 됨 ㅇㅅㅇ" 하는 등의 API 사용법 페이지를 자동으로 만들어주는 친절한 이웃 스파이더맨 같은 라이브러리이다. 
-
-MyBatis는 자바에서 SQL Mapper를 지원해주는 Framework이다.
-
-즉, SQL 작성을 직접 하여 객체와 매핑시켜준다.
-
-
-
-추가: 프로시저(PL/SQL 같은 친구들), POJO(순수 자바코드, 즉 직접 만든 엔티티(class)), 원시타입(기본형)
+- 아래 사진과 같은 API Document 를 구현할 수 있다.
+![api_document](dummy_images/swagger-ui_page.png)
 
 ---
 
@@ -66,7 +60,7 @@ MyBatis는 자바에서 SQL Mapper를 지원해주는 Framework이다.
 ## Swagger 사용 관련 Annotations
 
 ***(컨트롤러 클래스에) @Api(tags="게시판 API")***
-- tags 에 들어간 내용은 사진과 같이 나타난다.![img.png](img.png)
+- tags 에 들어간 내용은 사진과 같이 나타난다.![img.png](dummy_images/api_tag.png)
 
 
 ---
