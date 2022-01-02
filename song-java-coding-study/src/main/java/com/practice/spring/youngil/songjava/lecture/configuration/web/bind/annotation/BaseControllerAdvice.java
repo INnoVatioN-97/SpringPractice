@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 
+import java.util.Locale;
+
 @ControllerAdvice
 public class BaseControllerAdvice {
 
@@ -21,7 +23,7 @@ public class BaseControllerAdvice {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     private BaseResponse<?> handleBaseException(BaseException e, WebRequest request) {
-        return new BaseResponse<String>(e.getResponseCode(), messageSource.getMessage(e.getResponseCode().name(), null, null));
+        return new BaseResponse<String>(e.getResponseCode(), messageSource.getMessage(e.getResponseCode().name(), e.getArgs(), Locale.getDefault()));
     }
 
 }

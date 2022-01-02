@@ -1,7 +1,9 @@
 package com.practice.spring.youngil.songjava.lecture.mvc.controller;
 
 
+import com.practice.spring.youngil.songjava.lecture.configuration.exception.BaseException;
 import com.practice.spring.youngil.songjava.lecture.configuration.http.BaseResponse;
+import com.practice.spring.youngil.songjava.lecture.configuration.http.BaseResponseCode;
 import com.practice.spring.youngil.songjava.lecture.mvc.domain.Board;
 import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter;
 import com.practice.spring.youngil.songjava.lecture.mvc.service.BoardService;
@@ -10,6 +12,8 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +49,10 @@ public class BoardController {
             @ApiImplicitParam(name = "boardSeq", value = "게시글 번호", example = "1")
     })
     public BaseResponse<Board> getBoard(@PathVariable int boardSeq) {
+        Board board = boardService.getBoard(boardSeq);
+        if (board == null) {
+            throw new BaseException(BaseResponseCode.DATA_IS_NULL, new String[]{"게시물"});
+        }
         return new BaseResponse<>(boardService.getBoard(boardSeq));
     }
 
@@ -57,16 +65,17 @@ public class BoardController {
             @ApiImplicitParam(name = "contents", value = "게시글 내용", example = "게시글에 들어갈 내용"),
     })
     public BaseResponse<Integer> saveBoard(BoardParameter parameter) {
+        //제목 필수 제크
+        if(ObjectUtils.isEmpty(parameter.getTitle())){
+            throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[]{"title","제목"});
+        }
+        // 내용 필수 체크
+        if(ObjectUtils.isEmpty(parameter.getContents())){
+            throw new BaseException(BaseResponseCode.VALIDATE_REQUIRED, new String[]{"contents","내용"});
+        }
         boardService.saveBoard(parameter);
         return new BaseResponse<>(parameter.getBoardSeq());
     }
-
-//    // 게시글 수정
-//    @GetMapping("/updateBoard")
-//    @ApiOperation(value = "게시글 수정", notes = "게시글을 수정.")
-//    public void updateBoard(Board board) {
-//        boardService.updateBoard(board);
-//    }
 
     // 게시글 삭제
     @DeleteMapping("/{boardSeq}")
@@ -76,7 +85,7 @@ public class BoardController {
     })
     public BaseResponse<Boolean> deleteBoard(@PathVariable int boardSeq) {
         Board board = boardService.getBoard(boardSeq);
-        if(board == null) return new BaseResponse<>(false);
+        if (board == null) return new BaseResponse<>(false);
         boardService.deleteBoard(boardSeq);
         return new BaseResponse<>(true);
     }
