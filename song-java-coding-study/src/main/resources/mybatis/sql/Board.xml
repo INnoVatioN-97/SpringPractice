@@ -23,7 +23,7 @@
         WHERE B.BOARD_SEQ = #{boardSeq}
     </select>
 
-    <insert id="saveBoard" parameterType="com.practice.spring.youngil.songjava.lecture.mvc.domain.Board"
+    <insert id="saveBoard" parameterType="com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter"
             useGeneratedKeys="true" keyProperty="boardSeq">
         INSERT INTO T_BOARD(TITLE,
                             CONTENTS,
@@ -33,7 +33,7 @@
                 NOW())
     </insert>
 
-    <update id="updateBoard" parameterType="com.practice.spring.youngil.songjava.lecture.mvc.domain.Board">
+    <update id="updateBoard" parameterType="com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter">
         UPDATE T_BOARD
         SET TITLE    = #{title},
             CONTENTS = #{contents}

@@ -2,6 +2,7 @@ package com.practice.spring.youngil.songjava.lecture.mvc.service;
 
 
 import com.practice.spring.youngil.songjava.lecture.mvc.domain.Board;
+import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter;
 import com.practice.spring.youngil.songjava.lecture.mvc.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,15 +35,17 @@ public class BoardService {
     }
 
     // 게시글 저장
-    public int saveBoard(Board board) {
-        boardRepository.saveBoard(board);
-        return board.getBoardSeq();
+    public void saveBoard(BoardParameter parameter) {
+        Board board = boardRepository.getBoard(parameter.getBoardSeq());
+        if(board == null) {
+            boardRepository.saveBoard(parameter);
+        }else boardRepository.updateBoard(parameter);
     }
 
-    // 게시글 수정
-    public void updateBoard(Board board) {
-        boardRepository.updateBoard(board);
-    }
+//    // 게시글 수정
+//    public void updateBoard(Board board) {
+//        boardRepository.updateBoard(board);
+//    }
 
     // 게시글 삭제
     public void deleteBoard(int boardSeq) {
