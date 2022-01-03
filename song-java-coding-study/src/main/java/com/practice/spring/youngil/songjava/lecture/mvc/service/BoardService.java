@@ -7,7 +7,9 @@ import com.practice.spring.youngil.songjava.lecture.mvc.repository.BoardReposito
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 /**
@@ -40,6 +42,26 @@ public class BoardService {
         if(board == null) {
             boardRepository.saveBoard(parameter);
         }else boardRepository.updateBoard(parameter);
+    }
+
+    /**
+     * 대용량 데이터 저장 (foreach 방식으로 하나하나 insert)
+     * @param list
+     */
+    public void saveList1(List<BoardParameter> list) {
+        for(BoardParameter parameter : list){
+            boardRepository.saveBoard(parameter);
+        }
+    }
+
+    /**
+     * 대용량 데이터 저장 ( myBatis 에서 map 객체 자체를 한번에 저장시킴.)
+     * @param boardList
+     */
+    public void saveList2(List<BoardParameter> boardList) {
+        Map<String, Object> paramMap = new HashMap<>();
+        paramMap.put("boardList", boardList);
+        boardRepository.saveList(paramMap);
     }
 
 //    // 게시글 수정

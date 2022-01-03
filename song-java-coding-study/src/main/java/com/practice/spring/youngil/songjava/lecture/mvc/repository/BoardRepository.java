@@ -5,6 +5,7 @@ import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 간단한 CRUD 기능을 위한 게시판 리포지토리 인터페이스.
@@ -23,7 +24,8 @@ public interface BoardRepository {
 
     // 게시글 저장
     void saveBoard(BoardParameter parameter);
-
+    // 강의 7강 2:19까지 들음.
+    void saveList(Map<String, Object> paramMap);
     // 게시글 수정
     void updateBoard(BoardParameter parameter);
 
