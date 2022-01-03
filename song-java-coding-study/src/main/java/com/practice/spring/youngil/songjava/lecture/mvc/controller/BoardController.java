@@ -6,11 +6,9 @@ import com.practice.spring.youngil.songjava.lecture.configuration.http.BaseRespo
 import com.practice.spring.youngil.songjava.lecture.configuration.http.BaseResponseCode;
 import com.practice.spring.youngil.songjava.lecture.mvc.domain.Board;
 import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter;
+import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardSearchParameter;
 import com.practice.spring.youngil.songjava.lecture.mvc.service.BoardService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -43,8 +41,9 @@ public class BoardController {
     // 전체 조회
     @GetMapping("")
     @ApiOperation(value = "목록 조회", notes = "전체 게시물을 조회 가능.")
-    public BaseResponse<List<Board>> getList() {
-        return new BaseResponse<>(boardService.getList());
+    public BaseResponse<List<Board>> getList(@ApiParam BoardSearchParameter parameter) {
+        logger.info("getList");
+        return new BaseResponse<>(boardService.getList(parameter));
     }
 
     // 한건 조회

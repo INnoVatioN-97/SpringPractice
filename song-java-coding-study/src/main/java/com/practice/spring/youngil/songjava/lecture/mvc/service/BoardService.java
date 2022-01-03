@@ -3,6 +3,7 @@ package com.practice.spring.youngil.songjava.lecture.mvc.service;
 
 import com.practice.spring.youngil.songjava.lecture.mvc.domain.Board;
 import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter;
+import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardSearchParameter;
 import com.practice.spring.youngil.songjava.lecture.mvc.repository.BoardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,8 +28,8 @@ public class BoardService {
     }
 
     // 전체 조회
-    public List<Board> getList() {
-        return boardRepository.getList();
+    public List<Board> getList(BoardSearchParameter parameter) {
+        return boardRepository.getList(parameter);
     }
 
     // 한건 조회

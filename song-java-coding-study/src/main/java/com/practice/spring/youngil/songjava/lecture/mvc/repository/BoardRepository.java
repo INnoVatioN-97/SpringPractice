@@ -2,6 +2,7 @@ package com.practice.spring.youngil.songjava.lecture.mvc.repository;
 
 import com.practice.spring.youngil.songjava.lecture.mvc.domain.Board;
 import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter;
+import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardSearchParameter;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,7 +18,7 @@ import java.util.Map;
 public interface BoardRepository {
 
     // 전체 조회
-    List<Board> getList();
+    List<Board> getList(BoardSearchParameter parameter);
 
     // 한건 조회
     Board getBoard(int boardSeq);
