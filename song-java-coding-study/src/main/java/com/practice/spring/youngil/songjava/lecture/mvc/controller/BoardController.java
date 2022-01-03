@@ -4,6 +4,8 @@ package com.practice.spring.youngil.songjava.lecture.mvc.controller;
 import com.practice.spring.youngil.songjava.lecture.configuration.exception.BaseException;
 import com.practice.spring.youngil.songjava.lecture.configuration.http.BaseResponse;
 import com.practice.spring.youngil.songjava.lecture.configuration.http.BaseResponseCode;
+import com.practice.spring.youngil.songjava.lecture.framework.data.domain.MySQLPageRequest;
+import com.practice.spring.youngil.songjava.lecture.framework.data.domain.PageRequestParameter;
 import com.practice.spring.youngil.songjava.lecture.mvc.domain.Board;
 import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter;
 import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardSearchParameter;
@@ -41,9 +43,11 @@ public class BoardController {
     // 전체 조회
     @GetMapping("")
     @ApiOperation(value = "목록 조회", notes = "전체 게시물을 조회 가능.")
-    public BaseResponse<List<Board>> getList(@ApiParam BoardSearchParameter parameter) {
-        logger.info("getList");
-        return new BaseResponse<>(boardService.getList(parameter));
+    public BaseResponse<List<Board>> getList(@ApiParam BoardSearchParameter parameter, @ApiParam MySQLPageRequest pageRequest) {
+        logger.info("pageRequest: {}", pageRequest);
+        PageRequestParameter<BoardSearchParameter> pageRequestParameter = new PageRequestParameter<>(pageRequest, parameter);
+
+        return new BaseResponse<>(boardService.getList(pageRequestParameter));
     }
 
     // 한건 조회
