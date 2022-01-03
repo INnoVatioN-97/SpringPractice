@@ -27,6 +27,16 @@ Springboot 2.6.2 Gradle 프로젝트, 자바 11 사용, 패키징 방식: .jar
 - 아래 사진과 같은 API Document 를 구현할 수 있다.
 ![api_document](dummy_images/swagger-ui_page.png)
 
+**Enum 을 MyBatis 와 적절히 사용하면 좋은점**
+- 불필요한 테이블 및 코드정리가 필요없어진다.
+- 리스트, 상세 조회시 code, label 을 가져오기 위한 join, function 등의 불필요한 쿼리가 없어진다.
+- 만약 쿼리를 안썼어도 프론트에서 코드명을 가지고 뚜시따시하는 하드코딩을 하는 문제 또한 사라진다.
+- 성능이 좀 더 빨라진다. (join 등으로 타 테이블을 참조해오거나, HOOK 등으로 하드코딩하는 시간이 없어지니까)
+
+**단점**
+- 사이트 관리자 및 고객사에서 오픈 이후 코드 추가 / 수정 / 삭제가 불가능하다.
+- 위와 같은 코드의 추가 / 수정 / 삭제는 모두 개발자가 직접 코드를 수정하고 서버를 재배포, 가동해야 적용된다.
+- DBMS TOOL(Sequel ACE, HeidiSQL 등)에서 직접 insert, update 를 때리면 정의되지 않은 ENUM 등이 들어가 오류가 발생 가능. 
 ---
 
 # Annotations

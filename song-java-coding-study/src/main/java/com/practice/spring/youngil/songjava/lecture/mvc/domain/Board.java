@@ -11,6 +11,7 @@ import java.util.Date;
 public class Board {
 
     private int boardSeq; //PK, 게시판 번호
+    private BoardType boardType;
     private String title;
     private String contents;
     private Date regDate;

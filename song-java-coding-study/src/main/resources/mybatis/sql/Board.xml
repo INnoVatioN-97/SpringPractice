@@ -6,6 +6,7 @@
     <select id="getList" parameterType="com.practice.spring.youngil.songjava.lecture.mvc.domain.Board"
             resultType="com.practice.spring.youngil.songjava.lecture.mvc.domain.Board">
         SELECT B.BOARD_SEQ,
+               B.BOARD_TYPE,
                B.TITLE,
                B.CONTENTS,
                B.REG_DATE
@@ -16,6 +17,7 @@
     <select id="getBoard" parameterType="int"
             resultType="com.practice.spring.youngil.songjava.lecture.mvc.domain.Board">
         SELECT B.BOARD_SEQ,
+               B.BOARD_TYPE,
                B.TITLE,
                B.CONTENTS,
                B.REG_DATE
@@ -25,30 +27,39 @@
 
     <insert id="saveBoard" parameterType="com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter"
             useGeneratedKeys="true" keyProperty="boardSeq">
-        INSERT INTO T_BOARD(TITLE,
-                            CONTENTS,
-                            REG_DATE)
-        VALUES (#{title},
+        INSERT INTO T_BOARD
+        (BOARD_TYPE,
+         TITLE,
+         CONTENTS,
+         REG_DATE)
+        VALUES (#{boardType.code},
+                #{title},
                 #{contents},
                 NOW())
     </insert>
 
     <insert id="saveList" parameterType="map">
-        INSERT INTO T_BOARD(
-        TITLE, CONTENTS, REG_DATE
+        INSERT INTO T_BOARD
+        (
+        TITLE,
+        CONTENTS,
+        REG_DATE
         )
         VALUES
         <foreach collection="boardList" item="board" separator=",">
-            (#{board.title},
+            (
+            #{board.title},
             #{board.contents},
-            NOW())
+            NOW()
+            )
         </foreach>
     </insert>
 
     <update id="updateBoard" parameterType="com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter">
         UPDATE T_BOARD
-        SET TITLE    = #{title},
-            CONTENTS = #{contents}
+        SET BOARD_TYPE = #{boardType.code},
+            TITLE      = #{title},
+            CONTENTS   = #{contents}
         WHERE BOARD_SEQ = #{boardSeq}
     </update>
 
