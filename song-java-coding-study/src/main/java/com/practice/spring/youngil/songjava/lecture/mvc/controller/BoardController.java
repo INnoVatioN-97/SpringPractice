@@ -6,6 +6,7 @@ import com.practice.spring.youngil.songjava.lecture.configuration.http.BaseRespo
 import com.practice.spring.youngil.songjava.lecture.configuration.http.BaseResponseCode;
 import com.practice.spring.youngil.songjava.lecture.framework.data.domain.MySQLPageRequest;
 import com.practice.spring.youngil.songjava.lecture.framework.data.domain.PageRequestParameter;
+import com.practice.spring.youngil.songjava.lecture.framework.web.bind.annotation.RequestConfig;
 import com.practice.spring.youngil.songjava.lecture.mvc.domain.Board;
 import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardParameter;
 import com.practice.spring.youngil.songjava.lecture.mvc.parameter.BoardSearchParameter;
@@ -66,6 +67,7 @@ public class BoardController {
 
     // 게시글 저장
     @PutMapping
+    @RequestConfig(loginCheck = true)
     @ApiOperation(value = "게시글 등록 / 수정 처리", notes = "신규 게시물 저장 및 기존 게시물 업데이트가 가능.")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "boardSeq", value = "게시글 번호", example = "1"),
@@ -140,6 +142,7 @@ public class BoardController {
 
     // 게시글 삭제
     @DeleteMapping("/{boardSeq}")
+    @RequestConfig(loginCheck = true) // loginCheck 이 된 상태여야만 등록 / 삭제가 가능하도록
     @ApiOperation(value = "게시글 삭제 처리", notes = "게시판 번호에 해당하는 게시글을 삭제 가")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "boardSeq", value = "게시글 번호", example = "1"),
