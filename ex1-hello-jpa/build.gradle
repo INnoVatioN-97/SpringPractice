@@ -1,22 +1,24 @@
 plugins {
-	id 'org.springframework.boot' version '2.6.2'
-	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
-	id 'java'
+    id 'war'
+    id 'java'
 }
 
-group = 'jpa-basic'
-version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+group 'jpa-basic'
+version '1.0-SNAPSHOT'
 
 repositories {
-	mavenCentral()
+    mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'junit:junit:4.11'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+    implementation group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.7.4'
+    implementation group: 'org.hibernate', name: 'hibernate-entitymanager', version: '5.6.3.Final'
 }
 
 test {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
