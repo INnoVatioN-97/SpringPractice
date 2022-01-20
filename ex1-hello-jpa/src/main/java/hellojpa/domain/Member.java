@@ -2,7 +2,9 @@ package hellojpa.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 기본 키 매핑 어노테이션
@@ -41,11 +43,19 @@ public class Member {
      *  Team 클래스에서 보면 List<Member> members 라는 리스트가 있는데,
      *  그 리스트와 매핑되는 객체이다.
      */
-
-
     @ManyToOne
     @JoinColumn(name = "TEAM_ID ") //"TEAM_ID" 라는 컬럼으로 Join 하그라
     private Team team;
+    /**
+     *
+     */
+    @OneToOne
+    @JoinColumn(name = "LOCKER_ID")
+    private Locker locker;
+
+    @ManyToMany
+    @JoinTable(name = "MEMBER_PRODUCT")
+    private List<Product> products = new ArrayList<>();
 
     public Long getId() {
         return id;
