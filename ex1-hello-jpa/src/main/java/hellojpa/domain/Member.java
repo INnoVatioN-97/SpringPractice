@@ -44,7 +44,7 @@ public class Member {
      *  그 리스트와 매핑되는 객체이다.
      */
     @ManyToOne
-    @JoinColumn(name = "TEAM_ID ") //"TEAM_ID" 라는 컬럼으로 Join 하그라
+    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) //"TEAM_ID" 라는 컬럼으로 Join 하그라
     private Team team;
     /**
      *
@@ -71,14 +71,6 @@ public class Member {
     public void setName(String name) {
         this.name = name;
     }
-
-//    public Long getTeamId() {
-//        return teamId;
-//    }
-//
-//    public void setTeamId(Long teamId) {
-//        this.teamId = teamId;
-//    }
 
     public Team getTeam() {
         return team;

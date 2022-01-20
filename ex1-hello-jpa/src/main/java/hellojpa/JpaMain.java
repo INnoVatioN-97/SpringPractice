@@ -1,6 +1,7 @@
 package hellojpa;
 
 import hellojpa.domain.Member;
+import hellojpa.domain.Movie;
 import hellojpa.domain.Team;
 
 import javax.persistence.EntityManager;
@@ -26,15 +27,13 @@ public class JpaMain {
         tx.begin();
 
         try {
-//            Team team = new Team();
-//            team.setName("TeamA");
-//            em.persist(team);
-//
-//            Member member = new Member();
-//            member.setName("member");
-//            member.setTeam(team);
+            Movie movie = new Movie();
+            movie.setDirector("A");
+            movie.setActor("B");
+            movie.setName("바람과 함께 사라지다.");
+            movie.setPrice(10000);
 
-
+            em.persist(movie);
 
             em.flush();
             em.clear();
