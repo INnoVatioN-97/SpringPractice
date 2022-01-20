@@ -64,15 +64,18 @@ public class JpaMain {
 //            System.out.println("====================");
 
             Member member = new Member();
-            member.setId(3L);
+//            member.setId("ID_A");
             member.setUsername("C");
-            member.setRoleType(RoleType.GUEST);
-
+//            member.setRoleType(RoleType.GUEST);
+            System.out.println("=============");
             em.persist(member);
+            System.out.println("member.id = " + member.getId());
+            System.out.println("=============");
+
             tx.commit();
         } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("error 생김 ㅆㅂ!");
+            System.out.println("error 생김!");
             tx.rollback();
         } finally {
             em.close();
