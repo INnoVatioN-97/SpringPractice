@@ -29,11 +29,20 @@ public class Member {
 //    @Column(name = "TEAM_ID")
 //    private Long teamId;
 
+    @Override
+    public String toString() {
+        return String.format("id: %d, name: %s", id, name);
+    }
+
     /**
      *  @ManyToOne : Member 입장에서 다대일 이므로 이를 JPA 에 알리는 Annotation
      *  @JoinColumn(name = "TEAM_ID ") : "TEAM_ID" 라는 컬럼으로 Join 하그라
      *  이렇게 되면 연관관계 매핑이 됨.
+     *  Team 클래스에서 보면 List<Member> members 라는 리스트가 있는데,
+     *  그 리스트와 매핑되는 객체이다.
      */
+
+
     @ManyToOne
     @JoinColumn(name = "TEAM_ID ") //"TEAM_ID" 라는 컬럼으로 Join 하그라
     private Team team;
