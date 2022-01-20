@@ -8,6 +8,9 @@
         <class>jpabook.jpashop.domain.Order</class>
         <class>jpabook.jpashop.domain.OrderItem</class>
         <class>jpabook.jpashop.domain.OrderStatus</class>
+        <class>jpabook.jpashop.domain.Category</class>
+        <class>jpabook.jpashop.domain.Delivery</class>
+        <class>jpabook.jpashop.domain.DeliveryStatus</class>
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>

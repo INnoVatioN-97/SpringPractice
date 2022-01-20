@@ -5,6 +5,8 @@ import jpabook.jpashop.domain.OrderStatus;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Member - Order 1:N 테이블
@@ -18,18 +20,38 @@ public class Order {
     @Column(name = "ORDER_ID")
     private Long id;
 
-//    // 누가 주문했는지 알기 위함.
-//    @Column(name = "MEMBER_ID")
-//    private Long memberId;
-
     @ManyToOne
     @JoinColumn(name = "MEMBER_ID")
     private Member member;
+
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     private LocalDateTime orderDate;
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
+
+    /**
+     * Order - OrderItem 간의 양방향 연관관계를 성립시키는 메소드
+     * @param orderItem
+     */
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 
     public Long getId() {
         return id;
