@@ -27,5 +27,27 @@ List<Member> result = em.createQuery(jpql, Member.class).getResultList();
 - Java 의 날짜 타입 (Date, Calendar) 등을 DB 와 매핑할 때 사용.
 - 근데 자바8 이후로 생긴 LocalDate, LocalDateTime 자료형을 쓰면 굳이 이 어노테이션을 안붙이고 써도 최신 하이버네에이트에서 지원해준다.
 
+---
 
+**@MappedSuperclass**
+- 여러 테이블에 동일한 속성(예: 작성일, 수정일,작성자 등)이 필요할 때 사용할 수 있다.
+- 이 프로젝트에 있는 BaseEntity 같은 클래스를 하나 만들고 거기에 공통 속성 넣고 getter setter 넣고 얘를 extends
+- 그 후 공통 엔티티속성이 담긴 해당 클래스(여기선 BaseEntity)에 **@MappedSuperclass** Annotation 을 달아준다.
+- @MappedSuperclass 는 @Entity 가 아니므로 테이블과는 관계가 없고 단순히 여러 엔티티에서 공통으로 사용하는 매핑정보를 모아두는 창고역할이다.
+- 참고: @Entity 가 적힌 클래스는 엔티티나 @MappedSuperclass 로 지정한 클래스만 상속 가능하다.
+  - 쉽게 말하면, Member 가 BaseEntity 를 상속하듯이 @Entity 클래스는 똑같이 @Entity가 적힌 클래스나 BaseEntity 처럼 @MappedSuperclass 가 붙은 클래스만 extend가 된다는 뜻.
+```java
+import java.time.LocalDateTime;
 
+@MappedSuperclass
+public abstract class BaseEntity {
+    private String createdBy;
+    private LocalDateTime createdDate;
+    private String modifiedBy;
+    private LocalDateTime lastmodifiedDate;
+    
+    // ... getter ~ setter 
+}
+```
+- 그러나, 이런 @MappedSuperclass 로 매핑된 클래스는 상속관계 매핑도 아니고, 이 자체가 엔티티가 아니므로 테이블과 따로 매핑이 되지않는다. 그 말은 얘는 그냥 상위클래스로 얘를 상속받는 자식 클래스한테 공통된 속성들에 대한 매핑 정보만 제공해줄 뿐, 얘를 가지고 em.find(BaseEntity)같은 일은 못한다.
+- 그래서 얘는 얘 자체로 BaseEntity baseEntity = new ~~~ 이렇게 객체를 만들 일이 없으므로 abstract class 로 시즈모드 박아두자.
