@@ -1,14 +1,14 @@
 package hellojpa;
 
 import hellojpa.domain.Member;
-import hellojpa.domain.Movie;
 import hellojpa.domain.Team;
+import hellojpa.domain.cascade.Child;
+import hellojpa.domain.cascade.Parent;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -28,27 +28,30 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Child child1 = new Child();
+            Child child2 = new Child();
 
-            Member member = new Member();
-            member.setCreatedBy("Youngil Ko");
-            member.setCreatedDate(LocalDateTime.now());
-            member.setUserName("User 1");
-            em.persist(member);
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
 
-            em.flush();
-            em.clear();
-
-            Member foundMember = em.find(Member.class, member.getId());
-            System.out.println("foundMember. createdBy:"+foundMember.getCreatedBy() + ", createdDate: "+foundMember.getCreatedDate() + ", name: "+ foundMember.getUserName());
+            em.persist(parent);
 
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("error 생김!");
             tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }
         emf.close();
+    }
+
+    private static void printMemberAndTeam(Member foundMember) {
+        String userName = foundMember.getUserName();
+        System.out.println("userName = " + userName);
+
+        Team team = foundMember.getTeam();
+        System.out.println("team = " + team.getName());
     }
 }

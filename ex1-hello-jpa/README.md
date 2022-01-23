@@ -51,3 +51,9 @@ public abstract class BaseEntity {
 ```
 - 그러나, 이런 @MappedSuperclass 로 매핑된 클래스는 상속관계 매핑도 아니고, 이 자체가 엔티티가 아니므로 테이블과 따로 매핑이 되지않는다. 그 말은 얘는 그냥 상위클래스로 얘를 상속받는 자식 클래스한테 공통된 속성들에 대한 매핑 정보만 제공해줄 뿐, 얘를 가지고 em.find(BaseEntity)같은 일은 못한다.
 - 그래서 얘는 얘 자체로 BaseEntity baseEntity = new ~~~ 이렇게 객체를 만들 일이 없으므로 abstract class 로 시즈모드 박아두자.
+
+---
+
+**EntityManager.find() vs EntityManager.getReference()**
+- EntityManager.find() : 데이터베이스를 통해 실제 엔티티 객체를 조회
+- EntityManager.getReference() : 데이터베이스 조회를 미루는 가짜 엔티티 조회(이 메소드로 반환된 객체에 .getClass()를 하면 hibernate proxy 뭐시기가 뜬다.)

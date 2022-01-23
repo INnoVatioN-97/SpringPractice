@@ -10,8 +10,9 @@
         <class>hellojpa.domain.Album</class>
         <class>hellojpa.domain.Book</class>
         <class>hellojpa.domain.Movie</class>
-        <class>hellojpa.domain.Locker</class>
         <class>hellojpa.domain.MemberProduct</class>
+        <class>hellojpa.domain.cascade.Child</class>
+        <class>hellojpa.domain.cascade.Parent</class>
         <properties>
             <!-- 필수 속성 -->
             <property name="javax.persistence.jdbc.driver" value="org.mariadb.jdbc.Driver"/>

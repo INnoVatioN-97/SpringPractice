@@ -29,10 +29,6 @@ public class Member extends BaseEntity {
     @Column(name = "USER_NAME")
     private String userName;
 
-    @Override
-    public String toString() {
-        return String.format("id: %d, name: %s", id, userName);
-    }
 
     /**
      * @ManyToOne : Member 입장에서 다대일 이므로 이를 JPA 에 알리는 Annotation
@@ -41,18 +37,16 @@ public class Member extends BaseEntity {
      * Team 클래스에서 보면 List<Member> members 라는 리스트가 있는데,
      * 그 리스트와 매핑되는 객체이다.
      */
-    @ManyToOne
-    @JoinColumn(name = "TEAM_ID", insertable = false, updatable = false) //"TEAM_ID" 라는 컬럼으로 Join 하그라
-    private Team team;
     /**
-     *
+     * fetch=LAZY 를 주면 team 객체를 프록시 타입으로 준다.
+     * fetch=EAGER 를 주면 아예 join 을 해서 같이 가져와버림.
+     *  -> 얘는 실무에서 쓰면 ㅈ된다고 한다.
+     *  -> 반입을 EAGER (즉시 로딩)으로 박아버리면 JPQL 에서 N+1 문제를 일으킨다.
+     *  -> @ManyToOne, @OneToOne 은 기본이 즉시 로딩이라 이걸 명시적으로 LAZY 로 바꿔줘야 된다.
      */
-    @OneToOne
-    @JoinColumn(name = "LOCKER_ID")
-    private Locker locker;
-
-    @OneToMany(mappedBy = "member")
-    private List<MemberProduct> memberProducts = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "TEAM_ID")
+    private Team team;
 
     public Long getId() {
         return id;
@@ -76,5 +70,9 @@ public class Member extends BaseEntity {
 
     public void setTeam(Team team) {
         this.team = team;
+    }
+    @Override
+    public String toString() {
+        return String.format("id: %d, name: %s", id, userName);
     }
 }
