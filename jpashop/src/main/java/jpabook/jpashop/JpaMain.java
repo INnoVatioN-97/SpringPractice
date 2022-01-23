@@ -28,9 +28,9 @@ public class JpaMain {
             em.persist(book);
             tx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
             System.out.println("error 생김!");
             tx.rollback();
+            e.printStackTrace();
         } finally {
             em.close();
         }
