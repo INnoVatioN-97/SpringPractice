@@ -1,30 +1,25 @@
 package jpabook.jpashop.domain;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Member extends BaseEntity {
+public class Member {
     @Id
     @GeneratedValue
     @Column(name = "MEMBER_ID")
     private Long id;
-    private String name;
-    private String city;
-    private String street;
-    private String zipCode;
 
-    @OneToMany(mappedBy = "member")
-    private List<Order> orders = new ArrayList<>();
+    @Column(name = "USER_NAME")
+    private String username;
 
-    public List<Order> getOrders() {
-        return orders;
-    }
+    @Embedded
+    private Period period;
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
-    }
+    @Embedded
+    private Address address;
 
     public Long getId() {
         return id;
@@ -34,35 +29,27 @@ public class Member extends BaseEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public String getCity() {
-        return city;
+    public Period getPeriod() {
+        return period;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setPeriod(Period period) {
+        this.period = period;
     }
 
-    public String getStreet() {
-        return street;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public String getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }

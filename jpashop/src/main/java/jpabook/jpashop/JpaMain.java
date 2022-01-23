@@ -1,9 +1,7 @@
 package jpabook.jpashop;
 
 
-import jpabook.jpashop.domain.Book;
-import jpabook.jpashop.domain.Order;
-import jpabook.jpashop.domain.OrderItem;
+import jpabook.jpashop.domain.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,12 +18,13 @@ public class JpaMain {
         tx.begin();
 
         try {
+            Member member = new Member();
+            member.setUsername("HELLO");
+            member.setAddress(new Address("고양시", "젋음의 거리", "10228"));
+            member.setPeriod(new Period());
 
-            Book book = new Book();
-            book.setName("띵품 JAVA 프로그래밍");
-            book.setAuthor("이름모름 ㅎㅇ");
+            em.persist(member);
 
-            em.persist(book);
             tx.commit();
         } catch (Exception e) {
             System.out.println("error 생김!");
