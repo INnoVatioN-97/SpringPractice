@@ -22,19 +22,19 @@ class MemberRepositoryTest {
     @Rollback(value = false)
     public void testMember() throws Exception{
 
-        //given
-        Member member = new Member();
-        member.setUserName("MEMBER A");
-
-        //when
-        Long saveId = memberRepository.save(member);
-        Member findMember = memberRepository.find(saveId);
-
-        //then
-        Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
-        Assertions.assertThat(findMember.getUserName()).isEqualTo(member.getUserName());
-        Assertions.assertThat(findMember).isEqualTo(member);
-        System.out.println("(findMember == member) = " + (findMember == member));
+//        //given
+//        Member member = new Member();
+//        member.setUserName("MEMBER A");
+//
+//        //when
+//        Long saveId = memberRepository.save(member);
+//        Member findMember = memberRepository.find(saveId);
+//
+//        //then
+//        Assertions.assertThat(findMember.getId()).isEqualTo(member.getId());
+//        Assertions.assertThat(findMember.getUserName()).isEqualTo(member.getUserName());
+//        Assertions.assertThat(findMember).isEqualTo(member);
+//        System.out.println("(findMember == member) = " + (findMember == member));
 
     }
 

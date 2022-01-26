@@ -71,3 +71,14 @@ System.out.println(member.getOrders().getClass()):
  class java.util.ArrayList 
  class org.hibernate.collection.internal.PersistentBag
 ```
+---
+
+## 애플리케이션 아키텍처
+
+![img_4.png](img_4.png)
+
+**계층형 구조 사용**
+- controller, web : 웹 계층
+- service : 비즈니스 로직, 트랜잭션 처리
+- repository : JPA 를 직접 사용하는 계층. EntityManager 사용
+- domain : 엔티티가 모여있는 계층, 모든 계층에서 사용
