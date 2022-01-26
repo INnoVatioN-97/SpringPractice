@@ -8,6 +8,8 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.FetchType.*;
+
 @Entity
 @Getter
 @Setter
@@ -36,7 +38,7 @@ public class Category {
      * 카테고리 하위 분류 : 여러개의 하위 분류가 하나의 상위분류를 가지고 있다 = @OneToMany
      *  그 뒤, parent 에 연관관계를 매핑
      */
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name = "parent_id")
     private Category parent;
 
