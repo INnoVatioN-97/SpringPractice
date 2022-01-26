@@ -55,3 +55,19 @@
 - EAGER(즉시 로딩)은 예측이 어렵고 어떤 SQL 이 실행될지 추적 어려움. 특히 JPQL 을 사용할때 N+1문제가 자주 발생. (쓸데없는 쿼리 발생 = 성능 저하)
 - 즉, 실무에선 모든 연관관계는 LAZY(지연로딩)로. 연관된 엔티티를 함께 DB 에서 조회할 떈 fetch join 또는 엔티티 그래프 기능 사용.
   - **@OneToOne**, **@ManyToOne**은 기본값이 EAGER 이므로 신경써서 LAZY 로 바꾸기.
+
+**컬렉션은 필드에서 초기화**
+컬렉션은 필드에서 바로 init 하는게 안전함. (Member 클래스 내 orders 와 같은 애들)
+- null safety.
+- Hibernate 는 엔티티를 영속화할 때 컬렉션을 감싸 하이버네이트가 제공하는 내장 컬렉션으로 제공함. 만약 임의로 **getOrders()** 처럼 임의 메소드에서 컬렉션을 잘못 생성하면 하이버네이트 내부 매커니즘에 문제 발생 가능.따라서 필드레벨에서 생성하는게 가장 안전하고, 코드가 간결하다.
+
+```java
+Member member = new Member();
+System.out.println(member.getOrders().getClass()):
+em.persist(team);
+System.out.println(member.getOrders().getClass()):
+
+// 출력 결과 
+ class java.util.ArrayList 
+ class org.hibernate.collection.internal.PersistentBag
+```
