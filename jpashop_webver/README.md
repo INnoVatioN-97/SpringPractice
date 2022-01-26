@@ -42,3 +42,16 @@
 **persistence.xml**
 - Springboot 는 복잡한 설정을 자동화시켜 이전처럼 persistence.xml 같은걸 resources/META-INF 이런데다가 안만들어도 된다.
 
+---
+
+## 주의점
+
+
+### 엔티티 설계시
+**가급적 Setter 사용을 지양한다.**
+- Setter 가 열려있으면 변경포인트가 많아 유지보수 극혐. 개발중엔 @Setter 를 써도, 프로덕션레벨쯤 가면 Refactoring 으로 Setter 제거
+
+**모든 연관관계는 Lazy로 설정**
+- EAGER(즉시 로딩)은 예측이 어렵고 어떤 SQL 이 실행될지 추적 어려움. 특히 JPQL 을 사용할때 N+1문제가 자주 발생. (쓸데없는 쿼리 발생 = 성능 저하)
+- 즉, 실무에선 모든 연관관계는 LAZY(지연로딩)로. 연관된 엔티티를 함께 DB 에서 조회할 떈 fetch join 또는 엔티티 그래프 기능 사용.
+  - **@OneToOne**, **@ManyToOne**은 기본값이 EAGER 이므로 신경써서 LAZY 로 바꾸기.
