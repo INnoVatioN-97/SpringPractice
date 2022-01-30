@@ -33,7 +33,7 @@ public class ItemRepository {
      * @param itemId
      * @return
      */
-    public Item findOne(int itemId) {
+    public Item findOne(Long itemId) {
         return em.find(Item.class, itemId);
     }
 
