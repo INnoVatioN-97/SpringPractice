@@ -1,6 +1,7 @@
 package com.webver.jpabook.jpashop_webver.repository;
 
 import com.webver.jpabook.jpashop_webver.domain.Member;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -12,13 +13,13 @@ import java.util.List;
  * 자동으로 Spring Bean 에 등록된다.
  */
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
 
     /**
      * Spring Container 애서 이 어노테이션이 붙은 엔티티매니저를 DI 해줌.
      */
-    @PersistenceContext
-    private EntityManager em;
+    private final EntityManager em;
 
     /**
      * 가급적이면 save 후 멤버 객체를 반환하기보다
