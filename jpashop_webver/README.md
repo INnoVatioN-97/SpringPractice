@@ -82,3 +82,19 @@ System.out.println(member.getOrders().getClass()):
 - service : 비즈니스 로직, 트랜잭션 처리
 - repository : JPA 를 직접 사용하는 계층. EntityManager 사용
 - domain : 엔티티가 모여있는 계층, 모든 계층에서 사용
+
+---
+
+## 상품 도메인 개발
+
+**구현 기능**
+- 상품 등록
+- 상품 목록 조회
+- 상품 수정
+
+**순서**
+- 상품 엔티티 개발(Business Login 추가)
+- 상품 리포지토리 개발
+- 상품 서비스 개발
+- 상품 기능 테스트
+
