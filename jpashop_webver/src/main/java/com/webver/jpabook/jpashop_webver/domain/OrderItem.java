@@ -30,6 +30,8 @@ public class OrderItem {
     private int orderPrice;// 주문 당시 가격
     private int count;// 주문 당시 수량
 
+    protected OrderItem() {}
+
     //== 생성 메소드 ==//
     public static OrderItem createOrderItem(Item item, int orderPrice, int count) {
         OrderItem orderItem = new OrderItem();
