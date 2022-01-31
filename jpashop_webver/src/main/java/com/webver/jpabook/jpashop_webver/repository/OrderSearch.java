@@ -3,7 +3,6 @@ package com.webver.jpabook.jpashop_webver.repository;
 import com.webver.jpabook.jpashop_webver.domain.OrderStatus;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.stereotype.Repository;
 
 @Getter
 @Setter
