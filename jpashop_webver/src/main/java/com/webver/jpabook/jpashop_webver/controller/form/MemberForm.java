@@ -1,4 +1,4 @@
-package com.webver.jpabook.jpashop_webver.controller;
+package com.webver.jpabook.jpashop_webver.controller.form;
 
 import lombok.Getter;
 import lombok.Setter;

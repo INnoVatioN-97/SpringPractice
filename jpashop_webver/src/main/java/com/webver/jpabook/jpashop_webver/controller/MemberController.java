@@ -1,5 +1,6 @@
 package com.webver.jpabook.jpashop_webver.controller;
 
+import com.webver.jpabook.jpashop_webver.controller.form.MemberForm;
 import com.webver.jpabook.jpashop_webver.domain.Address;
 import com.webver.jpabook.jpashop_webver.domain.Member;
 import com.webver.jpabook.jpashop_webver.service.MemberService;
