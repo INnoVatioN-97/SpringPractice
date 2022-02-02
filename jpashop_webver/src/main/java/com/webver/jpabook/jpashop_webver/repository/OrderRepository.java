@@ -17,6 +17,7 @@ import java.util.List;
 public class OrderRepository {
 
     private final EntityManager em;
+
     public void save(Order order) {
         em.persist(order);
     }
@@ -37,26 +38,27 @@ public class OrderRepository {
     /**
      * 개 극혐으로 문자열 붙이기로 필터링하는 방법
      * 실무에서 쓰면 욕먹는단다.
+     *
      * @param orderSearch
      * @return
      */
-   public List<Order> findAllByString(OrderSearch orderSearch) {
+    public List<Order> findAllByString(OrderSearch orderSearch) {
 
-        String jpql = "select o from Order o join o.member m";
-        boolean isFirstCondition = false;
+        String jpql = "select o From Order o join o.member m";
+        boolean isFirstCondition = true;
 
-        // 주문 상태 검색
+        //주문 상태 검색
         if (orderSearch.getOrderStatus() != null) {
             if (isFirstCondition) {
                 jpql += " where";
-                isFirstCondition = true;
+                isFirstCondition = false;
             } else {
                 jpql += " and";
             }
             jpql += " o.status = :status";
         }
 
-        // 회원 이름 검색
+        //회원 이름 검색
         if (StringUtils.hasText(orderSearch.getMemberName())) {
             if (isFirstCondition) {
                 jpql += " where";
@@ -67,11 +69,11 @@ public class OrderRepository {
             jpql += " m.name like :name";
         }
 
-        TypedQuery<Order> query = em.createQuery(jpql, Order.class).setMaxResults(1000);
+        TypedQuery<Order> query = em.createQuery(jpql, Order.class).setMaxResults(1000); //최대 1000건
         if (orderSearch.getOrderStatus() != null) {
             query = query.setParameter("status", orderSearch.getOrderStatus());
         }
-        if (orderSearch.getMemberName() != null) {
+        if (StringUtils.hasText(orderSearch.getMemberName())) {
             query = query.setParameter("name", orderSearch.getMemberName());
         }
         return query.getResultList();
@@ -81,6 +83,7 @@ public class OrderRepository {
      * JPA Criteria 방식 (얘도 실무에서 안쓴다고 함.)
      * JPA 표준 스펙인데 이걸 짜면서 어떤 SQL 문이 나올지 감도 안오고,
      * 나중에 운영단계에서 유지보수 극혐이라고 한다.
+     *
      * @param orderSearch
      * @return
      */

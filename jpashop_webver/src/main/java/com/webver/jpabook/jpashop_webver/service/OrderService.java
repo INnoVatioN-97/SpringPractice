@@ -1,13 +1,11 @@
 package com.webver.jpabook.jpashop_webver.service;
 
-import com.webver.jpabook.jpashop_webver.domain.Delivery;
-import com.webver.jpabook.jpashop_webver.domain.Member;
-import com.webver.jpabook.jpashop_webver.domain.Order;
-import com.webver.jpabook.jpashop_webver.domain.OrderItem;
+import com.webver.jpabook.jpashop_webver.domain.*;
 import com.webver.jpabook.jpashop_webver.domain.item.Item;
 import com.webver.jpabook.jpashop_webver.repository.ItemRepository;
 import com.webver.jpabook.jpashop_webver.repository.MemberRepository;
 import com.webver.jpabook.jpashop_webver.repository.OrderRepository;
+import com.webver.jpabook.jpashop_webver.repository.OrderSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,24 +29,20 @@ public class OrderService {
      */
     @Transactional
     public Long order(Long memberId, Long itemId, int count) {
-
-        // 엔티티 조회 (해당 회원과 주문 품목)
+        //엔티티 조회
         Member member = memberRepository.findOne(memberId);
         Item item = itemRepository.findOne(itemId);
-
-        // 배송정보 생성
+        //배송정보 생성
         Delivery delivery = new Delivery();
         delivery.setAddress(member.getAddress());
-
-        // 주문 상품 생성
-        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(), count);
-
-        // 주문 생성
+        delivery.setStatus(DeliveryStatus.READY);
+        //주문상품 생성
+        OrderItem orderItem = OrderItem.createOrderItem(item, item.getPrice(),
+                count);
+        //주문 생성
         Order order = Order.createOrder(member, delivery, orderItem);
-
-        // 주문 저장
+        //주문 저장
         orderRepository.save(order);
-
         return order.getId();
     }
 
@@ -67,7 +61,7 @@ public class OrderService {
     /**
      * 검색
      */
-//    public List<Order> findOrders(OrderSearch orderSearch) {
-//        return orderRepository.findAll(orderSearch);
-//    }
+    public List<Order> findOrders(OrderSearch orderSearch) {
+        return orderRepository.findAllByString(orderSearch);
+    }
 }
