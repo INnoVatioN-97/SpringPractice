@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotEmpty;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * REST API 로 쓰기위한 Annotation
@@ -19,9 +21,33 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
+    @GetMapping("/api/v1/members")
+    public List<Member> membersV1() {
+        return memberService.findMembers();
+    }
+
+    @GetMapping("/api/v2/members")
+    public Result membersV2() {
+        List<Member> findMembers = memberService.findMembers();
+        List<MemberDto> collect = findMembers.stream().map(m -> new MemberDto(m.getName())).collect(Collectors.toList());
+
+        return new Result(collect);
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class Result<T> {
+        private T data;
+    }
+
+    @AllArgsConstructor
+    @Data
+    static class MemberDto{
+        private String name;
+    }
+
     /**
-     * @param member
-     * @return
+     * 회원 추가 v1
      * @RequestBody : JSON 으로 온 오브젝트를 Member 에 매핑해줌.
      */
     @PostMapping("/api/v1/members")
